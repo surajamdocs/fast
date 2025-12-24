@@ -1,15 +1,7 @@
-from typing import Union
-
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
+from models import Item
 
 app = FastAPI()
-
-
-class Item(BaseModel):
-    text: str = None
-    is_done: bool = False
-
 
 items = []
 

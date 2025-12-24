@@ -1,9 +1,9 @@
-from typing import Union
-
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
+from models import Item
 
 app = FastAPI()
 
+items = []
 
 @app.get("/")
 def read_root():

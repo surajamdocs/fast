@@ -9,6 +9,7 @@ app = FastAPI()
 def read_root():
     print("change 1")
     print("change 2")
+    print("change 3")
     return {"Hello": "World"}
 
 

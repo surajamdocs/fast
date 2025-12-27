@@ -10,17 +10,6 @@ models.Base.metadata.create_all(bind=engine)
 app = FastAPI()
 
 
-<<<<<<< HEAD
-@app.get("/")
-def read_root():
-    print("change 1")
-    return {"Hello": "World"}
-
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
-=======
 def get_db():
     db = SessionLocal()
     try:
@@ -51,4 +40,3 @@ def create_user(user: serializer.UserCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(db_user)
     return db_user
->>>>>>> 5772111 (feat: added security, models, serializers)

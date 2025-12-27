@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 fastapi = {extras = ["standard"], version = "*"}
+sqlalchemy = "*"
+passlib = {extras = ["bcrypt"], version = "*"}
 
 [dev-packages]
 

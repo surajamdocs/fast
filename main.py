@@ -1,10 +1,16 @@
-from fastapi import FastAPI, HTTPException
-from models import Item
+from fastapi import FastAPI, Depends, HTTPException
+from sqlalchemy.orm import Session
+
+import models, serializer
+from database import engine, SessionLocal
+from security import hash_password
+
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-items = []
 
+<<<<<<< HEAD
 @app.get("/")
 def read_root():
     print("change 1")
@@ -14,3 +20,35 @@ def read_root():
 @app.get("/items/{item_id}")
 def read_item(item_id: int, q: Union[str, None] = None):
     return {"item_id": item_id, "q": q}
+=======
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+
+@app.post("/users/", response_model=serializer.UserResponse)
+def create_user(user: serializer.UserCreate, db: Session = Depends(get_db)):
+    existing_user = db.query(models.User).filter(
+        models.User.email == user.email
+    ).first()
+
+    if existing_user:
+        raise HTTPException(status_code=400, detail="Email already registered")
+
+    db_user = models.User(
+        first_name=user.first_name,
+        last_name=user.last_name,
+        email=user.email,
+        phone=user.phone,
+        age=user.age,
+        password=hash_password(user.password)
+    )
+
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+>>>>>>> 5772111 (feat: added security, models, serializers)

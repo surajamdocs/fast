@@ -1,25 +1,21 @@
+import hashlib
 from passlib.context import CryptContext
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-MAX_PASSWORD_BYTES = 72
 
-
-def _normalize_password(password: str) -> bytes:
+def _prehash_password(password: str) -> bytes:
     """
-    Normalize password for bcrypt:
-    - UTF-8 encode
-    - Truncate to 72 bytes
+    Pre-hash password with SHA-256 to avoid bcrypt 72-byte limit.
     """
-    password_bytes = password.encode("utf-8")
-    return password_bytes[:MAX_PASSWORD_BYTES]
+    return hashlib.sha256(password.encode("utf-8")).digest()
 
 
 def hash_password(password: str) -> str:
-    normalized = _normalize_password(password)
-    return pwd_context.hash(normalized)
+    prehashed = _prehash_password(password)
+    return pwd_context.hash(prehashed)
 
 
 def verify_password(password: str, hashed_password: str) -> bool:
-    normalized = _normalize_password(password)
-    return pwd_context.verify(normalized, hashed_password)
+    prehashed = _prehash_password(password)
+    return pwd_context.verify(prehashed, hashed_password)

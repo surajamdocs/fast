@@ -4,6 +4,8 @@ from sqlalchemy.orm import Session
 import models, serializer
 from database import engine, SessionLocal
 from security import hash_password
+from auth import login_user
+
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -40,3 +42,11 @@ def create_user(user: serializer.UserCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(db_user)
     return db_user
+
+
+@app.post("/login")
+def login(email: str, password: str, db: Session = Depends(get_db)):
+    user_data = login_user(db, email, password)
+
+
+    return user_data

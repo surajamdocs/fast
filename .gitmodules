@@ -1,0 +1,3 @@
+[submodule "slow"]
+	path = slow
+	url = https://github.com/surajamdocs/slow.git

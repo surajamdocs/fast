@@ -1,7 +1,7 @@
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
-
-from models import User
+from datetime import datetime
+from models import User, OutstandingTokens
 from security import verify_password, create_access_token, create_refresh_token
 
 
@@ -41,5 +41,7 @@ def login_user(db: Session, email: str, password: str) -> str:
             "refresh_token": refresh_token
         }
     }
+
+    OutstandingTokens.create_outstanding_token(db=db, token=refresh_token, user_id=user.id, expires_at = datetime.now())
 
     return reponse

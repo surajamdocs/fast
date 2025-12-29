@@ -47,6 +47,4 @@ def create_user(user: serializer.UserCreate, db: Session = Depends(get_db)):
 @app.post("/login")
 def login(email: str, password: str, db: Session = Depends(get_db)):
     user_data = login_user(db, email, password)
-
-
     return user_data

@@ -1,9 +1,8 @@
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
-from datetime import timedelta
 
 from models import User
-from security import verify_password, create_access_token, create_refresh_token, ACCESS_TOKEN_EXPIRE_MINUTES
+from security import verify_password, create_access_token, create_refresh_token
 
 
 def login_user(db: Session, email: str, password: str) -> str:

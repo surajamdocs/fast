@@ -1,8 +1,7 @@
 from datetime import datetime, timedelta
-from jose import jwt
+from jose import jwt, JWTError
 import hashlib
 from passlib.context import CryptContext
-from jose import jwt, JWTError
 
 
 SECRET_KEY = "CHANGE_THIS_SECRET_KEY"

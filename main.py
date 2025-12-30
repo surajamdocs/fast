@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-import models, serializer
+import models, serializers.serializer as serializer
 from database import engine, SessionLocal
 from security import hash_password
 from auth import login_user

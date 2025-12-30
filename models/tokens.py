@@ -13,7 +13,6 @@ class OutstandingTokens(Base):
 
     @classmethod
     def create_outstanding_token(cls, db: Session, token: str, user_id: int, expires_at=expires_at):
-        print(token, user_id, "--------------")
         outstanding = cls(token=token, user_id=user_id, expires_at=expires_at)
         db.add(outstanding)
         db.commit()

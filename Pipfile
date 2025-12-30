@@ -11,6 +11,7 @@ cryptography = "*"
 argon2-cffi = "*"
 python-jose = "*"
 passlib = {extras = ["bcrypt"], version = "*"}
+paramiko = "*"
 
 [dev-packages]
 
